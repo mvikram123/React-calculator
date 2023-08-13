@@ -2,33 +2,84 @@ import React,{useState} from "react";
 
 
 const Calculator=()=>{
-    let[num1,setNum1]=useState();
-    let[num2,setNum2]=useState();
-    let[num3,setNum3]=useState();
-    let[error,setError]=useState();
+    let[num1,setNum1]=useState("")
+    let[num2,setNum2]=useState("")
+    let[num3,setNum3]=useState(null)
+    let[error,setError]=useState(null)
 
-        function addition()
-        {
-                let result=Number(num1)+Number(num2);
-                setNum3(result);
-        }
-        function subtraction()
-        {
-                let result=num1-num2;
-                setNum3(result)
-        }
 
-        function multiplication()
-        {
-                let result=num1*num2;
-                setNum3(result)
-        }
 
-        function division()
-        {
-                let result=num1/num2;
-                setNum3(result)
+    const validateInput=()=>{
+
+        if(num1=="" || num2=="" || isNaN(num1)||isNaN(num2)){
+            setError("Please Enter a valid number");
+            return false
         }
+    
+        setError(null)
+        return true
+    
+    };
+    const add=()=>{
+        if(validateInput()){
+
+            setNum3(parseFloat(num1)+parseFloat(num2));
+        }
+ }
+
+
+
+
+
+const subtract=()=>{
+    if(validateInput()){
+
+        setNum3(parseFloat(num1)-parseFloat(num2));
+    }
+}
+
+const multiply=()=>{
+    if(validateInput()){
+
+        setNum3(parseFloat(num1)*parseFloat(num2));
+    }
+}
+
+
+const division=()=>{
+    if(validateInput()){
+        if(num2!=="0")
+
+        setNum3(parseFloat(num1)/parseFloat(num2));
+    }
+    else{
+        setError("division by zero is not allowed");
+    }
+}
+
+    // here is normal function
+    //     function addition()
+    //     {
+    //             let result=Number(num1)+Number(num2);
+    //             setNum3(result);
+    //     }
+    //     function subtraction()
+    //     {
+    //             let result=num1-num2;
+    //             setNum3(result)
+    //     }
+
+    //     function multiplication()
+    //     {
+    //             let result=num1*num2;
+    //             setNum3(result)
+    //     }
+
+    //     function division()
+    //     {
+    //             let result=num1/num2;
+    //             setNum3(result)
+    //     }
 
 
 
@@ -45,12 +96,22 @@ const Calculator=()=>{
             <br />
             <div className="button">
                 
-               <button className="btn-style" onClick={addition}>+</button>
-               <button  className="btn-style" onClick={subtraction}>-</button>
-               <button className="btn-style" onClick={multiplication}>*</button>
+               <button className="btn-style" onClick={add}>+</button>
+               <button  className="btn-style" onClick={subtract}>-</button>
+               <button className="btn-style" onClick={multiply}>*</button>
                <button className="btn-style" onClick={division}>/</button>
               </div>
-              <p>Result : {num3}</p>
+              <div className="error">
+                {error ? (
+                <p className="red">{error}</p>
+                  ) : num3 != null ? (
+                  <p className="green">success</p>
+                   ) : null}
+           </div>
+        <div className="success">
+            {" "}
+             {num3 != null ? `Result: ${num3}` : null}
+        </div>
             
             </form>
 
